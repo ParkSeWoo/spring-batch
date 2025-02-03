@@ -2,10 +2,16 @@ package com.doldol.batch;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration;
+import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.launch.support.TaskExecutorJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.boot.autoconfigure.batch.JobLauncherApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -16,7 +22,8 @@ public class HelloJobConfiguration {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
 
-    public HelloJobConfiguration(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public HelloJobConfiguration(JobRepository jobRepository,
+                                 PlatformTransactionManager transactionManager) {
         this.jobRepository = jobRepository;
         this.transactionManager = transactionManager;
     }
@@ -24,8 +31,9 @@ public class HelloJobConfiguration {
     @Bean
     public Job helloJob() {
         return new JobBuilder("myJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
                 .start(myStep())
-                .next(myStep2()) //start 다음에 실행할거 지정할 수 있음
+                .next(myStep2())
                 .build();
     }
 
@@ -46,7 +54,7 @@ public class HelloJobConfiguration {
         return new StepBuilder("myStep2", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("=================");
-                    System.out.println(" >> STPE2 was executed !!");
+                    System.out.println(" >> STEP2 was executed !!");
                     System.out.println("=================");
                     return RepeatStatus.FINISHED;
                 }, transactionManager)

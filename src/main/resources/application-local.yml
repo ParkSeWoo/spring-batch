@@ -15,9 +15,25 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+  batch:
+    job:
+      enabled: true  # 자동 실행 활성화
+    jdbc:
+      initialize-schema: never  # 스키마 자동 초기화, 이미 생겨서 always -> never 로변경
+  sql:
+    init:
+      mode: never # 이미 생겨서 always -> never 로변경
+      schema-locations: classpath:/org/springframework/batch/core/schema-mysql.sql
+
+logging:
+  level:
+    org.springframework.batch: DEBUG
+    org.springframework.jdbc: DEBUG
