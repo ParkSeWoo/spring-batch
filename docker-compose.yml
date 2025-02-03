@@ -1,7 +1,7 @@
 services:
   mysql:
-    image: mysql:latest  # 최신 버전 사용
-    container_name: mysql_container
+    image: mysql:8.2
+    container_name: mysql-container
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword  # 루트 비밀번호 설정
