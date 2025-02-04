@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   mysql:
-    image: mysql:latest  # 최신 버전 사용
-    container_name: mysql_container
+    image: mysql:8.2
+    container_name: mysql-container
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword  # 루트 비밀번호 설정
@@ -14,7 +12,7 @@ services:
       - "3306:3306"  # 호스트의 3306 포트를 컨테이너의 3306 포트로 연결
     command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
     volumes:
-      - mysql_data:/var/lib/mysql  # 데이터 지속성을 위한 볼륨 마운트
+      - ./mysql-data:/var/lib/mysql  # 데이터 지속성을 위한 볼륨 마운트
 
 volumes:
   mysql_data:

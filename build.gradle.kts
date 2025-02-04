@@ -15,11 +15,19 @@ java {
 
 repositories {
 	mavenCentral()
+	maven {
+		url = uri("https://company/com/maven2")
+	}
+	mavenLocal()
 }
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-batch")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("com.mysql:mysql-connector-j:8.2.0")
+
 	compileOnly("org.projectlombok:lombok:1.18.36")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.batch:spring-batch-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
