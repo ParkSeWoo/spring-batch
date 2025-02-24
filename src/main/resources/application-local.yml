@@ -25,7 +25,7 @@ spring:
 
   batch:
     job:
-      enabled: true  # 자동 실행 활성화
+      enabled: false  # 자동 실행 활성화
     jdbc:
       initialize-schema: never  # 스키마 자동 초기화, 이미 생겨서 always -> never 로변경
   sql:
