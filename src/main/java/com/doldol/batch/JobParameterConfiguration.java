@@ -43,18 +43,7 @@ public class JobParameterConfiguration extends DefaultBatchConfiguration {
     @Bean
     public Step paramStep2(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("paramStep2", jobRepository)
-                .tasklet((contribution, chunkContext) -> {
-                    JobParameters jobParameters = chunkContext.getStepContext()
-                            .getStepExecution()
-                            .getJobExecution()
-                            .getJobParameters();
-
-                    String name = jobParameters.getString("name", "defaultUser");
-
-                    System.out.println("Step2222 실행 중... name: " + name);
-
-                    return RepeatStatus.FINISHED;
-                }, transactionManager)
-                .build();
+                    .tasklet(new CustomTasklet(), transactionManager)
+                    .build();
     }
 }
