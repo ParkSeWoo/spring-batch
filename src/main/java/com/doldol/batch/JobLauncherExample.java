@@ -9,22 +9,22 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-@Component
-public class JobLauncherExample implements ApplicationRunner {
-
-    private JobLauncher jobLauncher;
-    private Job sampleJob;
-
-    public JobLauncherExample(JobLauncher jobLauncher, Job sampleJob) {
-        this.jobLauncher = jobLauncher;
-        this.sampleJob = sampleJob;
-    }
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        JobParameters jobParameters = new JobParametersBuilder()
-                .addString("name", "user1")  // 실행 시 전달할 파라미터
-                .toJobParameters();
-        JobExecution execution = jobLauncher.run(sampleJob, jobParameters);
-    }
-}
+//@Component
+//public class JobLauncherExample implements ApplicationRunner {
+//
+//    private JobLauncher jobLauncher;
+//    private Job sampleJob;
+//
+//    public JobLauncherExample(JobLauncher jobLauncher, Job sampleJob) {
+//        this.jobLauncher = jobLauncher;
+//        this.sampleJob = sampleJob;
+//    }
+//
+//    @Override
+//    public void run(ApplicationArguments args) throws Exception {
+//        JobParameters jobParameters = new JobParametersBuilder()
+//                .addString("name", "userA")  // 실행 시 전달할 파라미터
+//                .toJobParameters();
+//        JobExecution execution = jobLauncher.run(sampleJob, jobParameters);
+//    }
+//}

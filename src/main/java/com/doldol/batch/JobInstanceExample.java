@@ -12,30 +12,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Configuration
-public class JobInstanceExample extends DefaultBatchConfiguration {
-    @Bean
-    public Job sampleJob(JobRepository jobRepository, Step sampleStep) {
-        return new JobBuilder("sampleJob", jobRepository)
-                .start(sampleStep)
-                .build();
-    }
-
-    @Bean
-    public Step sampleStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
-        return new StepBuilder("sampleStep", jobRepository)
-                .tasklet((contribution, chunkContext) -> {
-                    JobParameters jobParameters = chunkContext.getStepContext()
-                            .getStepExecution()
-                            .getJobExecution()
-                            .getJobParameters();
-
-                    String name = jobParameters.getString("name", "defaultUser");
-
-                    System.out.println("Step 실행 중... name: " + name);
-
-                    return RepeatStatus.FINISHED;
-                }, transactionManager)
-                .build();
-    }
-}
+//@Configuration
+//public class JobInstanceExample extends DefaultBatchConfiguration {
+//    @Bean
+//    public Job sampleJob(JobRepository jobRepository, Step sampleStep) {
+//        return new JobBuilder("sampleJob", jobRepository)
+//                .start(sampleStep)
+//                .build();
+//    }
+//
+//    @Bean
+//    public Step sampleStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+//        return new StepBuilder("sampleStep", jobRepository)
+//                .tasklet((contribution, chunkContext) -> {
+//                    JobParameters jobParameters = chunkContext.getStepContext()
+//                            .getStepExecution()
+//                            .getJobExecution()
+//                            .getJobParameters();
+//
+//                    String name = jobParameters.getString("name", "defaultUser");
+//
+//                    System.out.println("Step 실행 중... name: " + name);
+//
+//                    return RepeatStatus.FINISHED;
+//                }, transactionManager)
+//                .build();
+//    }
+//}
